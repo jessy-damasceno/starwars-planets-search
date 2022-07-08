@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const URL = 'https://swapi-trybe.herokuapp.com/api/planets/';
 

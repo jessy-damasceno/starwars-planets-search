@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MyContext from './MyContext';
+import useFetch from '../hooks/useFetch';
 
 export default function Provider({ children }) {
   const { isLoading, data } = useFetch();
@@ -17,5 +19,5 @@ export default function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
