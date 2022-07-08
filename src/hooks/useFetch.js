@@ -12,7 +12,7 @@ const useFetch = () => {
       setIsLoading(true);
       const response = await fetch(URL);
       const planets = await response.json();
-      setData(planets.results);
+      setData(planets.results.map(({ residents, ...rest }) => rest));
       setIsLoading(false);
     };
 
