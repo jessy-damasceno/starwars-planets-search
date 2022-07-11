@@ -22,21 +22,21 @@ const FilterByValues = () => {
 
     console.log(newFilter);
 
-    // const newColumn = options.filter((option) => option !== column);
-    // setOptions(newColumn);
-    setOptions((oldOptions) => oldOptions.filter((option) => option !== column));
+    const newOptions = options.filter((option) => option !== column);
+
+    setOptions(newOptions);
+    setColumn(newOptions[0]);
     addNumericFilter(newFilter);
   };
 
   return (
-    <div>
+    <form>
       <select
         data-testid="column-filter"
         name="column-filter"
         id="column-filter"
         value={ column }
         onChange={ (e) => setColumn(e.target.value) }
-        onClick={ (e) => setColumn(e.target.value) }
       >
         {options.map((key, i) => !filterByNumericValues
           ?.some((item) => item.column === key)
@@ -56,7 +56,6 @@ const FilterByValues = () => {
         id="comparison-filter"
         value={ comparison }
         onChange={ (e) => setComparison(e.target.value) }
-        onClick={ (e) => setComparison(e.target.value) }
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
@@ -79,7 +78,7 @@ const FilterByValues = () => {
       >
         Add Filter
       </button>
-    </div>);
+    </form>);
 };
 
 export default FilterByValues;
