@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import MyContext from '../contexts/MyContext';
 
 const Table = () => {
-  const { isLoading, data } = useContext(MyContext);
-  console.log(isLoading, data);
+  const { isLoading, data, filteredList } = useContext(MyContext);
 
-  return data.length && (
+  return isLoading ? <h1>Wait, please...</h1> : filteredList.length && (
     <table>
       <thead>
         <tr>
@@ -15,7 +14,7 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {data.map((planet, index) => (
+        {filteredList.map((planet, index) => (
           <tr key={ index }>
             {Object.values(planet).map((e, i) => <td key={ i }>{e}</td>)}
           </tr>
