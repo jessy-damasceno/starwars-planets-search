@@ -2,15 +2,16 @@ import React, { useState, useContext } from 'react';
 import MyContext from '../../contexts/MyContext';
 
 const FilterByValues = () => {
-  const { addNumericFilter } = useContext(MyContext);
-
-  const [column, setColumn] = useState('population');
-  const [comparison, setComparison] = useState('maior que');
-  const [value, setValue] = useState(0);
+  const { addNumericFilter, filterByNumericValues } = useContext(MyContext);
 
   const COLUMN_OPTIONS = [
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
   ];
+
+  const [options, setOptions] = useState(COLUMN_OPTIONS);
+  const [column, setColumn] = useState('population');
+  const [comparison, setComparison] = useState('maior que');
+  const [value, setValue] = useState(0);
 
   const handleClick = () => {
     const newFilter = {
@@ -19,10 +20,13 @@ const FilterByValues = () => {
       value,
     };
 
+    console.log(newFilter);
+
+    // const newColumn = options.filter((option) => option !== column);
+    // setOptions(newColumn);
+    setOptions((oldOptions) => oldOptions.filter((option) => option !== column));
     addNumericFilter(newFilter);
   };
-
-  // console.log(`\n COLUMN: ${column} \n COMPARISON: ${comparison} \n VALUE: ${value}`);
 
   return (
     <div>
@@ -32,10 +36,18 @@ const FilterByValues = () => {
         id="column-filter"
         value={ column }
         onChange={ (e) => setColumn(e.target.value) }
+        onClick={ (e) => setColumn(e.target.value) }
       >
-        {COLUMN_OPTIONS.map((key, i) => (
-          <option value={ key } key={ i }>{key}</option>
-        ))}
+        {options.map((key, i) => !filterByNumericValues
+          ?.some((item) => item.column === key)
+          && (
+            <option
+              value={ key }
+              key={ i }
+            >
+              {key}
+            </option>
+          ))}
       </select>
 
       <select
@@ -44,6 +56,7 @@ const FilterByValues = () => {
         id="comparison-filter"
         value={ comparison }
         onChange={ (e) => setComparison(e.target.value) }
+        onClick={ (e) => setComparison(e.target.value) }
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>

@@ -34,10 +34,7 @@ export default function Provider({ children }) {
               return e[column] < Number(value);
             }
 
-            if (comparison === 'igual') {
-              return e[column] === value;
-            }
-            return null;
+            return e[column] === value;
           }));
       });
     };

@@ -16,7 +16,13 @@ const Table = () => {
       <tbody>
         {filteredList.map((planet, index) => (
           <tr key={ index }>
-            {Object.values(planet).map((e, i) => <td key={ i }>{e}</td>)}
+            {Object.values(planet).map((e, i) => (
+              <td
+                data-testid={ e === planet.name ? 'planet-name' : null }
+                key={ i }
+              >
+                {e}
+              </td>))}
           </tr>
         ))}
       </tbody>
