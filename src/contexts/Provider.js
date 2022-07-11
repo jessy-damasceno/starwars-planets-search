@@ -8,6 +8,7 @@ export default function Provider({ children }) {
 
   const [filteredList, setFilteredList] = useState(data);
   const [filterByName, setFilterByName] = useState('');
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
   useEffect(() => {
     const setList = () => setFilteredList(data);
@@ -20,17 +21,46 @@ export default function Provider({ children }) {
     setList();
   }, [data, filterByName]);
 
-  const filterListWithTextInput = (key, value) => {
-    setFilteredList(data.filter((item) => item[key]
-      .toLowerCase().includes(value.toLowerCase())));
+  useEffect(() => {
+    const setList = () => {
+      filterByNumericValues.forEach(({ column, comparison, value }) => {
+        setFilteredList((oldList) => oldList
+          .filter((e) => {
+            if (comparison === 'maior que') {
+              return e[column] > Number(value);
+            }
+
+            if (comparison === 'menor que') {
+              return e[column] < Number(value);
+            }
+
+            if (comparison === 'igual') {
+              return e[column] === value;
+            }
+            return null;
+          }));
+      });
+    };
+    setList();
+  }, [data, filterByNumericValues]);
+
+  const addNumericFilter = (newFilter) => {
+    setFilterByNumericValues((oldList) => {
+      if (oldList.length) {
+        return [...oldList, newFilter];
+      }
+      return [newFilter];
+    });
   };
 
   const contextValue = {
-    filteredList,
-    filterListWithTextInput,
-    setFilterByName,
-    isLoading,
+    // states
     data,
+    filteredList,
+    isLoading,
+    // funcs
+    addNumericFilter,
+    setFilterByName,
   };
 
   return (
