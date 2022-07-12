@@ -23,6 +23,7 @@ export default function Provider({ children }) {
 
   useEffect(() => {
     const setList = () => {
+      setFilteredList(data);
       filterByNumericValues.forEach(({ column, comparison, value }) => {
         setFilteredList((oldList) => oldList
           .filter((e) => {
@@ -50,14 +51,21 @@ export default function Provider({ children }) {
     });
   };
 
+  const removeNumericFilter = (column) => {
+    setFilterByNumericValues((oldList) => oldList.filter((e) => e.column !== column));
+  };
+
   const contextValue = {
     // states
     data,
     filteredList,
     isLoading,
+    filterByNumericValues,
     // funcs
     addNumericFilter,
+    removeNumericFilter,
     setFilterByName,
+    setFilterByNumericValues,
   };
 
   return (

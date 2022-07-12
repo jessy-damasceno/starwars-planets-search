@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import MyContext from '../contexts/MyContext';
 
 const Table = () => {
-  const { isLoading, data, filteredList } = useContext(MyContext);
+  const { isLoading, data, filteredList, filterByNumericValues } = useContext(MyContext);
+  console.log(filterByNumericValues);
 
   return isLoading ? <h1>Wait, please...</h1> : filteredList.length && (
     <table>
