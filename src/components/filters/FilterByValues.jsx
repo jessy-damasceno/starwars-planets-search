@@ -7,6 +7,7 @@ const FilterByValues = () => {
     filterByNumericValues,
     removeNumericFilter,
     setFilterByNumericValues,
+    sortListByColumn,
   } = useContext(MyContext);
 
   const INITIAL_OPTIONS = [
@@ -16,6 +17,8 @@ const FilterByValues = () => {
   const [options, setOptions] = useState(INITIAL_OPTIONS);
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
+  const [sortByColumn, setSortByColumn] = useState('population');
+  const [sortOrder, setSortOrder] = useState('ASC');
   const [value, setValue] = useState(0);
 
   const handleClick = () => {
@@ -24,8 +27,6 @@ const FilterByValues = () => {
       comparison,
       value,
     };
-
-    console.log(newFilter);
 
     const newOptions = options.filter((option) => option !== column);
 
@@ -99,6 +100,54 @@ const FilterByValues = () => {
         >
           Add Filter
         </button>
+
+        <div className="sort-table">
+          <button
+            data-testid="column-sort-button"
+            type="button"
+            onClick={ () => sortListByColumn(sortByColumn, sortOrder) }
+          >
+            ORDENAR POR
+          </button>
+          <select
+            name="sortByColumn"
+            id="sortByColumn"
+            data-testid="column-sort"
+            value={ sortByColumn }
+            onChange={ (e) => setSortByColumn(e.target.value) }
+          >
+            {INITIAL_OPTIONS.map((e, i) => (
+              <option
+                value={ e }
+                key={ i }
+              >
+                {e}
+              </option>
+            ))}
+          </select>
+          <label htmlFor="ASC">
+            <input
+              type="radio"
+              name="sortOrder"
+              id="ASC"
+              data-testid="column-sort-input-asc"
+              value="ASC"
+              onClick={ () => setSortOrder('ASC') }
+            />
+            ASCENDENTE
+          </label>
+          <label htmlFor="DESC">
+            <input
+              type="radio"
+              name="sortOrder"
+              id="DESC"
+              data-testid="column-sort-input-desc"
+              value="DESC"
+              onClick={ () => setSortOrder('DESC') }
+            />
+            DESCENDENTE
+          </label>
+        </div>
 
         <button
           data-testid="button-remove-filters"

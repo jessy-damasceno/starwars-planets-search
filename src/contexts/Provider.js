@@ -10,8 +10,36 @@ export default function Provider({ children }) {
   const [filterByName, setFilterByName] = useState('');
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
+  const sortListByColumn = (column, order) => {
+    const newList = [...filteredList];
+
+    const callBack1 = (a, b, arg1) => {
+      if (a[arg1] === 'unknown') {
+        return 1;
+      }
+
+      return a[arg1] - b[arg1];
+    };
+
+    const callBack2 = (a, b, arg2) => {
+      if (a[arg2] === 'unknown') {
+        return 1;
+      }
+
+      return b[arg2] - a[arg2];
+    };
+
+    setFilteredList(() => {
+      if (order === 'ASC') {
+        return newList.sort((a, b) => callBack1(a, b, column));
+      }
+      return newList.sort((a, b) => callBack2(a, b, column));
+    });
+  };
+
   useEffect(() => {
-    const setList = () => setFilteredList(data);
+    const setList = () => setFilteredList(data
+      .sort((a, b) => a.name.localeCompare(b.name)));
     setList();
   }, [data]);
 
@@ -66,6 +94,7 @@ export default function Provider({ children }) {
     removeNumericFilter,
     setFilterByName,
     setFilterByNumericValues,
+    sortListByColumn,
   };
 
   return (
