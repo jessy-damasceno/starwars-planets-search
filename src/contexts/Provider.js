@@ -31,9 +31,13 @@ export default function Provider({ children }) {
 
     setFilteredList(() => {
       if (order === 'ASC') {
-        return [...newList.sort((a, b) => callBack1(a, b, column))];
+        const xablau = [...newList.sort((a, b) => callBack1(a, b, column))];
+        console.log(xablau);
+        return xablau;
       }
-      return [...newList.sort((a, b) => callBack2(a, b, column))];
+      const xablau = [...newList.sort((a, b) => callBack2(a, b, column))];
+      console.log(xablau);
+      return xablau;
     });
   };
 
