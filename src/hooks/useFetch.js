@@ -12,7 +12,8 @@ const useFetch = () => {
       setIsLoading(true);
       const response = await fetch(URL);
       const planets = await response.json();
-      setData(planets.results.map(({ residents, ...rest }) => rest));
+      setData(planets.results.map(({ residents, ...rest }) => rest)
+        .sort((a, b) => a.name.localeCompare(b.name)));
       setIsLoading(false);
     };
 
