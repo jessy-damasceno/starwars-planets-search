@@ -15,7 +15,7 @@ export default function Provider({ children }) {
 
     const callBack1 = (a, b, arg1) => {
       if (a[arg1] === 'unknown') {
-        return 100;
+        return 1;
       }
 
       return Number(a[arg1]) - Number(b[arg1]);
@@ -23,7 +23,7 @@ export default function Provider({ children }) {
 
     const callBack2 = (a, b, arg2) => {
       if (a[arg2] === 'unknown') {
-        return 100;
+        return 1;
       }
 
       return Number(b[arg2]) - Number(a[arg2]);
