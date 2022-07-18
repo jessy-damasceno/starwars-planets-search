@@ -121,5 +121,14 @@ describe('END 2 END test', () => {
     waitFor(() => screen.getAllByTestId('planet-name'));
 
     expect(screen.getAllByTestId('planet-name')).toHaveLength(6);
+
+    userEvent.click(screen.getByTestId('button-remove-filters'));
+    userEvent.selectOptions(columnSort, 'population');
+    userEvent.click(columnSortInputAsc);
+    userEvent.click(sortButton);
+    
+    waitFor(() => screen.getAllByTestId('planet-name'));
+    
+    expect(screen.getAllByText('unknown')).toHaveLength(3);
   });
 });

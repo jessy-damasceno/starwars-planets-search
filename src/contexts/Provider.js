@@ -26,17 +26,19 @@ export default function Provider({ children }) {
         return 1;
       }
 
+      if (b[arg2] === 'unknown') {
+        return -'1';
+      }
+
       return Number(b[arg2]) - Number(a[arg2]);
     };
 
     setFilteredList(() => {
       if (order === 'ASC') {
         const xablau = [...newList.sort((a, b) => callBack1(a, b, column))];
-        console.log(xablau);
         return xablau;
       }
       const xablau = [...newList.sort((a, b) => callBack2(a, b, column))];
-      console.log(xablau);
       return xablau;
     });
   };
